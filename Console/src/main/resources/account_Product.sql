@@ -1,0 +1,1 @@
+INSERT INTO account.Product (name, groupId) VALUES ('gkg', null);

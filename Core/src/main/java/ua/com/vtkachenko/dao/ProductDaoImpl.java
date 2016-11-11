@@ -47,7 +47,7 @@ public class ProductDaoImpl implements ProductDao {
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/account", "root", "root")){
             ProductDao dao = new ProductDaoImpl(con);
             Product product = new Product();
-            product.setName("Milk");
+            product.setName("Jacket");
             Product res = dao.create(product);
             System.out.println(product);
         }

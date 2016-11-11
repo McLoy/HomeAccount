@@ -24,6 +24,6 @@ public class HelloMotherFucker implements Hellower {
 //    }
 
     public void seyHello() {
-        System.out.printf("Hello motherfucker!!!");
+        System.out.printf("Hello progers!!!");
     }
 }

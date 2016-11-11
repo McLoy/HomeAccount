@@ -8,10 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ProductDAOImpl implements ProductDAO {
+public class ProductDaoImpl implements ProductDao {
     private final Connection connection;
 
-    public ProductDAOImpl(Connection connection) {
+    public ProductDaoImpl(Connection connection) {
         this.connection = connection;
     }
 
@@ -45,9 +45,9 @@ public class ProductDAOImpl implements ProductDAO {
 
     public static void main(String[] args) throws SQLException {
         try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/account", "root", "root")){
-            ProductDAO dao = new ProductDAOImpl(con);
+            ProductDao dao = new ProductDaoImpl(con);
             Product product = new Product();
-            product.setName("dfgsdf");
+            product.setName("Milk");
             Product res = dao.create(product);
             System.out.println(product);
         }

@@ -8,11 +8,11 @@ public interface GenericDao<T> {
 
     T update(T entity);
 
-    T find(Long id);
+    T find(long id) throws SQLException;
 
     List<T> findAll();
 
-    boolean delete(Long id);
+    boolean delete(long id);
 
     boolean delete(T entity);
 }

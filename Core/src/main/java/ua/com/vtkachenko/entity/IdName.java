@@ -1,15 +1,15 @@
 package ua.com.vtkachenko.entity;
 
 public abstract class IdName {
-    private long Id;
+    private long id;
     private String name;
 
     public long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {

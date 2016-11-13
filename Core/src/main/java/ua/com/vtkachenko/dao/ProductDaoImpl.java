@@ -18,6 +18,14 @@ public class ProductDaoImpl implements ProductDao {
         int result = statement.executeUpdate();
         Product product = new Product();
         product.setName(entity.getName());
+
+        Statement statement1 = connection.createStatement();
+        ResultSet result1 = statement1.executeQuery("SELECT id FROM Product WHERE name = '" + entity.getName() + "'");
+        int id_product = 0;
+        if (result1.next()){
+            id_product = result1.getInt("id");
+        }
+        System.out.println(id_product);
         return product;
     }
 
@@ -51,11 +59,11 @@ public class ProductDaoImpl implements ProductDao {
             ProductDao dao = new ProductDaoImpl(con);
             Product product = new Product();
             product.setName("Bread");
+            product.setDescr("White");
             Product res = dao.create(product);
-
-            System.out.println(res);
-        } finally {
-
+            //System.out.println(res);
+        } catch (SQLException e){
+            e.printStackTrace();
         }
 
     }

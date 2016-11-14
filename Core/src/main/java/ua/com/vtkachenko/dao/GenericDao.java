@@ -6,13 +6,13 @@ import java.util.List;
 public interface GenericDao<T> {
     T create(T entity) throws SQLException;
 
-    T update(T entity);
+    T update(T entity) throws SQLException;
 
     T find(long id) throws SQLException;
 
-    List<T> findAll();
+    List<T> findAll() throws SQLException;
 
-    boolean delete(long id);
+    boolean delete(long id) throws SQLException;
 
-    boolean delete(T entity);
+    boolean delete(T entity) throws SQLException;
 }

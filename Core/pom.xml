@@ -36,10 +36,21 @@
             <version>3.8.1</version>
             <scope>test</scope>
         </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.easytesting</groupId>-->
+            <!--<artifactId>fest-assert</artifactId>-->
+            <!--<version>1.4</version>-->
+            <!--<scope>test</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>6.0.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.3.3.RELEASE</version>
         </dependency>
     </dependencies>
 </project>

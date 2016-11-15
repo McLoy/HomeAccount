@@ -15,13 +15,14 @@ class GroupDaoImpl implements GroupDao{
 
     @Override
     public Group create(Group entity) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO `Group` (name) VALUES (?)");
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO `Group` (name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, entity.getName());
         int result = statement.executeUpdate();
-        Group group = new Group();
-        group.setName(entity.getName());
-        getId_group(entity, group);
-        return group;
+        ResultSet ret_id = statement.getGeneratedKeys();
+        if (ret_id.next()) {
+            entity.setId(ret_id.getLong(1));
+        }
+        return entity;
     }
 
     private void getId_group(Group entity, Group group) throws SQLException {

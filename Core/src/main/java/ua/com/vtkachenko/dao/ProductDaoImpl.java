@@ -78,43 +78,4 @@ public class ProductDaoImpl implements ProductDao {
         }
         return false;
     }
-
-//    public static void main(String[] args) throws SQLException {
-//        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/account", "root", "root")){
-//
-//            ProductDao dao = new ProductDaoImpl(con);
-//            Product product = new Product();
-//            product.setName("Bread");
-//            product.setDescr("White");
-//            Product res = dao.create(product);
-//            System.out.println("Product: " + res.getName() + ", id: " + res.getId() + ", descr: " + res.getDescr());
-//
-////            ProductDao dao = new ProductDaoImpl(con);
-////            List<Product> f = new ArrayList();
-////            f = dao.findAll();
-////            for (Product product : f) {
-////                System.out.println("Product: " + product.getName() + ", id: " + product.getId());
-////            }
-//
-////            ProductDao dao = new ProductDaoImpl(con);
-////            dao.delete(new Product());
-////            List<Product> f = new ArrayList();
-////            f = dao.findAll();
-////            for (Product product : f) {
-////                System.out.println("Product: " + product.getName() + ", id: " + product.getId());
-////            }
-//
-////            ProductDao dao = new ProductDaoImpl(con);
-////            Product product = new Product();
-////            product.setName("Bread");
-////            product.setDescr("Grey");
-////            Product res = dao.update(product);
-////            System.out.println("Product: " + res.getName() + ", id: " + res.getId() + ", descr: " + res.getDescr());
-//
-//
-//        } catch (SQLException e){
-//            e.printStackTrace();
-//        }
-//
-//    }
 }

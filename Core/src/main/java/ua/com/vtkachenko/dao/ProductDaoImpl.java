@@ -18,7 +18,7 @@ public class ProductDaoImpl implements ProductDao {
         statement.setString(1, entity.getName());
         int result = statement.executeUpdate();
         ResultSet ret_id = statement.getGeneratedKeys();
-        if (ret_id.next()){
+        if (ret_id.next()) {
             entity.setId(ret_id.getLong(1));
             PreparedStatement statement3 = connection.prepareStatement("INSERT INTO Description (product_id, descr) VALUES (?, ?)");
             statement3.setLong(1, ret_id.getLong(1));
@@ -26,49 +26,36 @@ public class ProductDaoImpl implements ProductDao {
             int result3 = statement3.executeUpdate();
         }
         return entity;
-//        return null;
     }
 
-    private int getId_product(Product entity, Product product) throws SQLException {
+    public Product update(Product entity) throws SQLException {
         Statement statement1 = connection.createStatement();
         ResultSet result1 = statement1.executeQuery("SELECT id FROM Product WHERE name = '" + entity.getName() + "'");
-        int id_product = 0;
-        if (result1.next()){
-            id_product = result1.getInt("id");
+        if (result1.next()) {
+            PreparedStatement statement3 = connection.prepareStatement("UPDATE Description SET descr = ? WHERE product_id = ?", Statement.RETURN_GENERATED_KEYS);
+            statement3.setString(1, entity.getDescr());
+            statement3.setLong(2, result1.getInt("id"));
+            int result3 = statement3.executeUpdate();
         }
-        product.setId((long) id_product);
-        return id_product;
+        return entity;
     }
 
-    public Product update(Product entity) throws SQLException{
-        Product product = new Product();
-        product.setName(entity.getName());
-        long id_product = getId_product(entity, product);
-        PreparedStatement statement3 = connection.prepareStatement("UPDATE Description SET descr = ? WHERE product_id = ?");
-        statement3.setString(1, entity.getDescr());
-        statement3.setLong(2, id_product);
-        int result3 = statement3.executeUpdate();
-        product.setDescr(entity.getDescr());
-        product.setId(id_product);
-        return product;
-    }
-
-    public Product find(long id) throws SQLException{
+    public Product find(long id) throws SQLException {
         Statement statementFind = connection.createStatement();
         ResultSet resultFind = statementFind.executeQuery("SELECT name FROM Product WHERE id = " + id);
         Product product = new Product();
-        if (resultFind.next()){
+        if (resultFind.next()) {
             product.setName(resultFind.getString("name"));
             product.setId(id);
         }
         return product;
     }
 
-    public List<Product> findAll() throws SQLException{
+    public List<Product> findAll() throws SQLException {
         Statement statementFind = connection.createStatement();
         ResultSet resultFind = statementFind.executeQuery("SELECT * FROM Product");
         List<Product> listPr = new ArrayList<>();
-        while (resultFind.next()){
+        while (resultFind.next()) {
             Product product = new Product();
             product.setName(resultFind.getString("name"));
             product.setId(resultFind.getLong("id"));
@@ -80,18 +67,14 @@ public class ProductDaoImpl implements ProductDao {
     public boolean delete(long id) throws SQLException {
         Statement statementFind = connection.createStatement();
         int res = statementFind.executeUpdate("DELETE FROM Product WHERE id = " + id);
-        int resDescr = 0;
-        if (res == 1){
-            Statement statementDescr = connection.createStatement();
-            resDescr = statementDescr.executeUpdate("DELETE FROM Description WHERE id = " + id);
-        }
-        return res == 1 && resDescr == 1 ? true : false;
+        Statement statementDescr = connection.createStatement();
+        int resDescr = statementDescr.executeUpdate("DELETE FROM Description WHERE product_id = " + id);
+        return res == 1 && resDescr == 1;
     }
 
-    public boolean delete(Product entity) throws SQLException{
-        if (entity != null){
-            delete(entity.getId());
-            return true;
+    public boolean delete(Product entity) throws SQLException {
+        if (entity != null) {
+            return delete(entity.getId());
         }
         return false;
     }

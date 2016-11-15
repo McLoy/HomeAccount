@@ -22,7 +22,6 @@ public class ProductDaoImplTest{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-//        Assert.assertEquals(res.getName(), "Bread");
         if (res != null) {
             Assertions.assertThat(res.getName()).isEqualTo("Bread");
             Assertions.assertThat(res.getDescr()).isEqualTo("White");
@@ -34,7 +33,7 @@ public class ProductDaoImplTest{
     public void delete() throws Exception {
         try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/account", "root", "root")) {
             ProductDao dao = new ProductDaoImpl(con);
-            Assertions.assertThat(dao.delete(17)).isTrue();
+            Assertions.assertThat(dao.delete(19)).isTrue();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -81,7 +81,7 @@ public class ProductDaoImpl implements ProductDao {
         Statement statementFind = connection.createStatement();
         int res = statementFind.executeUpdate("DELETE FROM Product WHERE id = " + id);
         int resDescr = 0;
-        if (res ==1){
+        if (res == 1){
             Statement statementDescr = connection.createStatement();
             resDescr = statementDescr.executeUpdate("DELETE FROM Description WHERE id = " + id);
         }

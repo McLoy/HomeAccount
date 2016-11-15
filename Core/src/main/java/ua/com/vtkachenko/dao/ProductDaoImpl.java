@@ -14,19 +14,19 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     public Product create(Product entity) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO Product (name) VALUES (?)");
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO Product (name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, entity.getName());
         int result = statement.executeUpdate();
-        Product product = new Product();
-        product.setName(entity.getName());
-
-        long id_product = getId_product(entity, product);
-        PreparedStatement statement3 = connection.prepareStatement("INSERT INTO Description (product_id, descr) VALUES (?, ?)");
-        statement3.setLong(1, id_product);
-        statement3.setString(2, entity.getDescr());
-        int result3 = statement3.executeUpdate();
-        product.setDescr(entity.getDescr());
-        return product;
+        ResultSet ret_id = statement.getGeneratedKeys();
+        if (ret_id.next()){
+            entity.setId(ret_id.getLong(1));
+            PreparedStatement statement3 = connection.prepareStatement("INSERT INTO Description (product_id, descr) VALUES (?, ?)");
+            statement3.setLong(1, ret_id.getLong(1));
+            statement3.setString(2, entity.getDescr());
+            int result3 = statement3.executeUpdate();
+        }
+        return entity;
+//        return null;
     }
 
     private int getId_product(Product entity, Product product) throws SQLException {
@@ -80,7 +80,12 @@ public class ProductDaoImpl implements ProductDao {
     public boolean delete(long id) throws SQLException {
         Statement statementFind = connection.createStatement();
         int res = statementFind.executeUpdate("DELETE FROM Product WHERE id = " + id);
-        return res == 1 ? true : false;
+        int resDescr = 0;
+        if (res ==1){
+            Statement statementDescr = connection.createStatement();
+            resDescr = statementDescr.executeUpdate("DELETE FROM Description WHERE id = " + id);
+        }
+        return res == 1 && resDescr == 1 ? true : false;
     }
 
     public boolean delete(Product entity) throws SQLException{
@@ -91,42 +96,42 @@ public class ProductDaoImpl implements ProductDao {
         return false;
     }
 
-    public static void main(String[] args) throws SQLException {
-        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/account", "root", "root")){
-
+//    public static void main(String[] args) throws SQLException {
+//        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/account", "root", "root")){
+//
 //            ProductDao dao = new ProductDaoImpl(con);
 //            Product product = new Product();
 //            product.setName("Bread");
 //            product.setDescr("White");
 //            Product res = dao.create(product);
 //            System.out.println("Product: " + res.getName() + ", id: " + res.getId() + ", descr: " + res.getDescr());
-
-//            ProductDao dao = new ProductDaoImpl(con);
-//            List<Product> f = new ArrayList();
-//            f = dao.findAll();
-//            for (Product product : f) {
-//                System.out.println("Product: " + product.getName() + ", id: " + product.getId());
-//            }
-
-//            ProductDao dao = new ProductDaoImpl(con);
-//            dao.delete(new Product());
-//            List<Product> f = new ArrayList();
-//            f = dao.findAll();
-//            for (Product product : f) {
-//                System.out.println("Product: " + product.getName() + ", id: " + product.getId());
-//            }
-
-            ProductDao dao = new ProductDaoImpl(con);
-            Product product = new Product();
-            product.setName("Bread");
-            product.setDescr("Grey");
-            Product res = dao.update(product);
-            System.out.println("Product: " + res.getName() + ", id: " + res.getId() + ", descr: " + res.getDescr());
-
-
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-
-    }
+//
+////            ProductDao dao = new ProductDaoImpl(con);
+////            List<Product> f = new ArrayList();
+////            f = dao.findAll();
+////            for (Product product : f) {
+////                System.out.println("Product: " + product.getName() + ", id: " + product.getId());
+////            }
+//
+////            ProductDao dao = new ProductDaoImpl(con);
+////            dao.delete(new Product());
+////            List<Product> f = new ArrayList();
+////            f = dao.findAll();
+////            for (Product product : f) {
+////                System.out.println("Product: " + product.getName() + ", id: " + product.getId());
+////            }
+//
+////            ProductDao dao = new ProductDaoImpl(con);
+////            Product product = new Product();
+////            product.setName("Bread");
+////            product.setDescr("Grey");
+////            Product res = dao.update(product);
+////            System.out.println("Product: " + res.getName() + ", id: " + res.getId() + ", descr: " + res.getDescr());
+//
+//
+//        } catch (SQLException e){
+//            e.printStackTrace();
+//        }
+//
+//    }
 }

@@ -88,38 +88,38 @@ class GroupDaoImpl implements GroupDao{
         return false;
     }
 
-    public static void main(String[] args) {
-        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/account", "root", "root")){
+//    public static void main(String[] args) {
+//        try(Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/account", "root", "root")){
+////            GroupDao dao = new GroupDaoImpl(con);
+////            Group group = new Group();
+////            group.setName("Car");
+////            Group res = dao.create(group);
+////            System.out.println("Group: " + res.getName() + ", id: " + res.getId());
+//
+////            GroupDao dao = new GroupDaoImpl(con);
+////            List<Group> f = new ArrayList();
+////            f = dao.findAll();
+////            for (Group group : f) {
+////                System.out.println("Group: " + group.getName() + ", id: " + group.getId());
+////            }
+//
 //            GroupDao dao = new GroupDaoImpl(con);
-//            Group group = new Group();
-//            group.setName("Car");
-//            Group res = dao.create(group);
-//            System.out.println("Group: " + res.getName() + ", id: " + res.getId());
-
-//            GroupDao dao = new GroupDaoImpl(con);
+//            dao.delete(2);
 //            List<Group> f = new ArrayList();
 //            f = dao.findAll();
 //            for (Group group : f) {
 //                System.out.println("Group: " + group.getName() + ", id: " + group.getId());
 //            }
-
-            GroupDao dao = new GroupDaoImpl(con);
-            dao.delete(2);
-            List<Group> f = new ArrayList();
-            f = dao.findAll();
-            for (Group group : f) {
-                System.out.println("Group: " + group.getName() + ", id: " + group.getId());
-            }
-
-//            GroupDao dao = new GroupDaoImpl(con);
-//            Group group = new Group();
-//            group.setId(2);
-//            group.setName("Bus");
-//            Group res = dao.update(group);
-//            System.out.println("Group: " + res.getName() + ", id: " + res.getId());
-
-        } catch (SQLException e){
-            e.printStackTrace();
-        }
-    }
+//
+////            GroupDao dao = new GroupDaoImpl(con);
+////            Group group = new Group();
+////            group.setId(2);
+////            group.setName("Bus");
+////            Group res = dao.update(group);
+////            System.out.println("Group: " + res.getName() + ", id: " + res.getId());
+//
+//        } catch (SQLException e){
+//            e.printStackTrace();
+//        }
+//    }
 }

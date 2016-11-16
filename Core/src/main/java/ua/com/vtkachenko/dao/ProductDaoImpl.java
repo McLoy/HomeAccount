@@ -24,8 +24,9 @@ public class ProductDaoImpl implements ProductDao {
             statement3.setLong(1, ret_id.getLong(1));
             statement3.setString(2, entity.getDescr());
             int result3 = statement3.executeUpdate();
+            return entity;
         }
-        return entity;
+        return null;
     }
 
     public Product update(Product entity) throws SQLException {
@@ -36,8 +37,9 @@ public class ProductDaoImpl implements ProductDao {
             statement3.setString(1, entity.getDescr());
             statement3.setLong(2, result1.getInt("id"));
             int result3 = statement3.executeUpdate();
+            return entity;
         }
-        return entity;
+        return null;
     }
 
     public Product find(long id) throws SQLException {
@@ -47,8 +49,9 @@ public class ProductDaoImpl implements ProductDao {
         if (resultFind.next()) {
             product.setName(resultFind.getString("name"));
             product.setId(id);
+            return product;
         }
-        return product;
+        return null;
     }
 
     public List<Product> findAll() throws SQLException {

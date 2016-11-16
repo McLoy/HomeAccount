@@ -6,6 +6,12 @@ public class Money {
     private Group group;
     private double summ;
 
+    public Money(Product product, Group group, double summ) {
+        this.product = product;
+        this.group = group;
+        this.summ = summ;
+    }
+
     public Product getProduct() {
         return product;
     }

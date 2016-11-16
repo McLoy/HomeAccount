@@ -62,6 +62,5 @@ public class GroupDaoImplTest {
             pr.setId(ID);//You need to set id!!!
             Assertions.assertThat(dao.delete(pr)).isTrue();
         }
-
     }
 }

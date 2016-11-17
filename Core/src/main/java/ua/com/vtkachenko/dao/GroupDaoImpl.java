@@ -6,10 +6,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-class GroupDaoImpl implements GroupDao{
+public class GroupDaoImpl implements GroupDao{
     private final Connection connection;
 
-    GroupDaoImpl(Connection connection) {
+    public GroupDaoImpl(Connection connection) {
         this.connection = connection;
     }
 
@@ -23,16 +23,6 @@ class GroupDaoImpl implements GroupDao{
             entity.setId(ret_id.getLong(1));
         }
         return entity;
-    }
-
-    private void getId_group(Group entity, Group group) throws SQLException {
-        Statement statement1 = connection.createStatement();
-        ResultSet result1 = statement1.executeQuery("SELECT id FROM `Group` WHERE name = '" + entity.getName() + "'");
-        int id_group = 0;
-        if (result1.next()){
-            id_group = result1.getInt("id");
-        }
-        group.setId((long) id_group);
     }
 
     @Override

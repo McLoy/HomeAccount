@@ -104,9 +104,17 @@ public class MoneyDaoImpl implements MoneyDao{
         while (resultFind.next()) {
             Money money = new Money();
             Product product = new Product();
-            product.setId(resultFind.getLong("product_id"));
+            long id_prod = resultFind.getLong("product_id");
+            product.setId(id_prod);
+            ProductDao pd = new ProductDaoImpl(connection);
+            Product prod = pd.find(id_prod);
+            product.setName(prod.getName());
+            product.setDescr(pd.find(prod.getId()).getDescr());
             Group group = new Group();
-            group.setId(resultFind.getLong("group_id"));
+            long id_group = resultFind.getLong("group_id");
+            GroupDao gr = new GroupDaoImpl(connection);
+            group.setId(id_group);
+            group.setName(gr.find(id_group).getName());
             money.setProduct(product);
             money.setGroup(group);
             money.setSumm(resultFind.getDouble("summ"));

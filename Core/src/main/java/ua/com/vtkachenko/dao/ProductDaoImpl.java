@@ -47,6 +47,10 @@ public class ProductDaoImpl implements ProductDao {
         ResultSet resultFind = statementFind.executeQuery("SELECT name FROM Product WHERE id = " + id);
         Product product = new Product();
         if (resultFind.next()) {
+            PreparedStatement statementFind2 = connection.prepareStatement("SELECT * FROM Description WHERE product_id = ?");
+            statementFind2.setLong(1, id);
+            ResultSet resultFind2 = statementFind2.executeQuery();
+            if (resultFind2.next()) product.setDescr(resultFind2.getString("descr"));
             product.setName(resultFind.getString("name"));
             product.setId(id);
             return product;

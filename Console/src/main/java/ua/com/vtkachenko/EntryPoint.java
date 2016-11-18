@@ -9,10 +9,10 @@ import java.sql.SQLException;
 
 public class EntryPoint {
 
-    public static final String URL = "jdbc:mysql://localhost:3306/account";
-    public static final String USER = "root";
-    public static final String PASSWORD = "root";
-    public static final String SEPARATOR = "@";
+//    public static final String URL = "jdbc:mysql://localhost:3306/account";
+//    public static final String USER = "root";
+//    public static final String PASSWORD = "root";
+//    public static final String SEPARATOR = "@";
 
     public static void main(String[] args) throws SQLException {
 //        App app = new App("Hello world!");

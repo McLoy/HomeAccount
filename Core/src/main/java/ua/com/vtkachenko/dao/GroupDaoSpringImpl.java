@@ -48,11 +48,4 @@ public class GroupDaoSpringImpl implements GroupDao {
     public boolean delete(Group entity) throws SQLException {
         return false;
     }
-
-    public static void main(String[] args) throws SQLException {
-        GroupDao groupDao = new GroupDaoSpringImpl();
-        Group group = new Group();
-        group.setName("Example");
-        groupDao.create(group);
-    }
 }

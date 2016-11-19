@@ -11,7 +11,7 @@
     <!--</bean>-->
 
     <context:property-placeholder location = "app.properties"/>
-    <context:component-scan base-package = "ua.com.vtkachenko.dao"/>
+    <context:component-scan base-package = "ua.com.vtkachenko.dao,ua.com.vtkachenko"/>
 
     <bean id = "fucker" class = "ua.com.vtkachenko.HelloMotherFucker">
 

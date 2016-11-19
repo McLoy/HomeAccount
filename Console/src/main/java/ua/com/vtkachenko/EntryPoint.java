@@ -2,9 +2,6 @@ package ua.com.vtkachenko;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
-import ua.com.vtkachenko.dao.GroupDao;
-import ua.com.vtkachenko.dao.GroupDaoSpringImpl;
-import ua.com.vtkachenko.entity.Group;
 
 import java.sql.SQLException;
 
@@ -20,10 +17,12 @@ public class EntryPoint {
 
         ApplicationContext context =
                 new GenericXmlApplicationContext("app-context.xml");
+        Terminal terminal = context.getBean(Terminal.class);
+        terminal.start();
 
-        GroupDaoSpringImpl groupDAO = (GroupDaoSpringImpl) context.getBean(GroupDao.class);
-        Group group = new Group();
-        group.setName("Example");
-        groupDAO.create(group);
+//        GroupDaoSpringImpl groupDAO = (GroupDaoSpringImpl) context.getBean(GroupDao.class);
+//        Group group = new Group();
+//        group.setName("Example");
+//        groupDAO.create(group);
     }
 }

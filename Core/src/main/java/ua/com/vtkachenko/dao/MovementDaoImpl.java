@@ -1,23 +1,23 @@
 package ua.com.vtkachenko.dao;
 
 import ua.com.vtkachenko.entity.Group;
-import ua.com.vtkachenko.entity.Money;
+import ua.com.vtkachenko.entity.Movement;
 import ua.com.vtkachenko.entity.Product;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoneyDaoImpl implements MoneyDao{
+public class MovementDaoImpl implements MovementDao {
 
     private final Connection connection;
 
-    public MoneyDaoImpl(Connection connection) {
+    public MovementDaoImpl(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public Money create(Money entity) throws SQLException {
+    public Movement create(Movement entity) throws SQLException {
         entity = findAndSetIdForProductAndGroup(entity);
         PreparedStatement statement = connection.prepareStatement("INSERT INTO Movements (product_id, group_id, summ) VALUES (?,?,?)");
         statement.setLong(1, entity.getProduct().getId());
@@ -27,7 +27,7 @@ public class MoneyDaoImpl implements MoneyDao{
         return entity;
     }
 
-    private Money findAndSetIdForProductAndGroup(Money entity) throws SQLException{
+    private Movement findAndSetIdForProductAndGroup(Movement entity) throws SQLException{
         Product product = entity.getProduct();
         Group group = entity.getGroup();
         if (product.getId() == 0){
@@ -58,7 +58,7 @@ public class MoneyDaoImpl implements MoneyDao{
     }
 
     @Override
-    public Money update(Money entity) throws SQLException {
+    public Movement update(Movement entity) throws SQLException {
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM Movements WHERE id = (?)");
         statement.setLong(1, entity.getId());
         ResultSet res = statement.executeQuery();
@@ -78,31 +78,31 @@ public class MoneyDaoImpl implements MoneyDao{
     }
 
     @Override
-    public Money find(long id) throws SQLException {
-        Money money = new Money();
+    public Movement find(long id) throws SQLException {
+        Movement movement = new Movement();
         PreparedStatement statement = connection.prepareStatement("SELECT * FROM Movements WHERE id = ?");
         statement.setLong(1, id);
         ResultSet res = statement.executeQuery();
         if (res.next()){
             Product product = new Product();
             product.setId(res.getLong("product_id"));
-            money.setProduct(product);
+            movement.setProduct(product);
             Group group = new Group();
             group.setId(res.getLong("group_id"));
-            money.setGroup(group);
-            money.setSumm(res.getDouble("summ"));
-            return money;
+            movement.setGroup(group);
+            movement.setSumm(res.getDouble("summ"));
+            return movement;
         }
         return null;
     }
 
     @Override
-    public List<Money> findAll() throws SQLException {
+    public List<Movement> findAll() throws SQLException {
         Statement statementFind = connection.createStatement();
         ResultSet resultFind = statementFind.executeQuery("SELECT * FROM Movements");
-        List<Money> listPr = new ArrayList<>();
+        List<Movement> listPr = new ArrayList<>();
         while (resultFind.next()) {
-            Money money = new Money();
+            Movement movement = new Movement();
             Product product = new Product();
             long id_prod = resultFind.getLong("product_id");
             product.setId(id_prod);
@@ -115,10 +115,10 @@ public class MoneyDaoImpl implements MoneyDao{
             GroupDao gr = new GroupDaoImpl(connection);
             group.setId(id_group);
             group.setName(gr.find(id_group).getName());
-            money.setProduct(product);
-            money.setGroup(group);
-            money.setSumm(resultFind.getDouble("summ"));
-            listPr.add(money);
+            movement.setProduct(product);
+            movement.setGroup(group);
+            movement.setSumm(resultFind.getDouble("summ"));
+            listPr.add(movement);
         }
         return listPr;
     }
@@ -131,7 +131,7 @@ public class MoneyDaoImpl implements MoneyDao{
     }
 
     @Override
-    public boolean delete(Money entity) throws SQLException {
+    public boolean delete(Movement entity) throws SQLException {
         if (entity != null){
             delete(entity.getId());
             return true;

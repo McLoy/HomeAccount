@@ -61,7 +61,7 @@ public class ProductDaoSpringImpl implements ProductDao {
         String SQL2 = "UPDATE Descriptions SET name = ? WHERE product_id = ?";
         jdbcTemplate.update(SQL, entity.getName(), entity.getId());
         jdbcTemplate.update(SQL2, entity.getDescr(), entity.getId());
-        return null;
+        return entity;
     }
 
     @Override
@@ -74,17 +74,25 @@ public class ProductDaoSpringImpl implements ProductDao {
     @Override
     public List<Product> findAll() throws SQLException {
         String SQL = "SELECT * FROM Products LEFT JOIN Descriptions ON id = product_id";
-        List developers = jdbcTemplate.query(SQL, new ProductMapper());
-        return developers;
+        List products = jdbcTemplate.query(SQL, new ProductMapper());
+        return products;
     }
 
     @Override
     public boolean delete(long id) throws SQLException {
-        return false;
+        String SQL = "DELETE FROM Products WHERE id = ?";
+        String SQL2 = "DELETE FROM Descriptions WHERE product_id = ?";
+        jdbcTemplate.update(SQL, id);
+        jdbcTemplate.update(SQL2, id);
+        return true;
     }
 
     @Override
     public boolean delete(Product entity) throws SQLException {
+        if (entity != null){
+            delete(entity.getId());
+            return true;
+        }
         return false;
     }
 }

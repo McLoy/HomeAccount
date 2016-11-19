@@ -53,8 +53,8 @@ public class GroupDaoSpringImpl implements GroupDao {
     @Override
     public List<Group> findAll() throws SQLException {
         String SQL = "SELECT * FROM Groups";
-        List developers = jdbcTemplate.query(SQL, new GroupMapper());
-        return developers;
+        List groups = jdbcTemplate.query(SQL, new GroupMapper());
+        return groups;
     }
 
     @Override

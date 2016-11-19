@@ -1,16 +1,16 @@
 package ua.com.vtkachenko.entity;
 
-public class Money {
+public class Movement {
 
     private Product product;
     private Group group;
     private double summ;
     private long id;
 
-    public Money() {
+    public Movement() {
     }
 
-    public Money(Product product, Group group, double summ) {
+    public Movement(Product product, Group group, double summ) {
         this.product = product;
         this.group = group;
         this.summ = summ;

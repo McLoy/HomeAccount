@@ -1,21 +1,17 @@
 package ua.com.vtkachenko.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
 import ua.com.vtkachenko.entity.Group;
 
-import javax.sql.DataSource;
 import java.sql.SQLException;
 import java.util.List;
 
+@Component
 public class GroupDaoSpringImpl implements GroupDao {
-
-    private DataSource dataSource;
-    private JdbcTemplate jdbcTemplate;
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
+    @Autowired
+    protected JdbcTemplate jdbcTemplate;
 
     @Override
     public Group create(Group entity) throws SQLException {

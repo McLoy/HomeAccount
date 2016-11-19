@@ -14,13 +14,13 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     public Product create(Product entity) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO Product (name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO Products (name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, entity.getName());
         int result = statement.executeUpdate();
         ResultSet ret_id = statement.getGeneratedKeys();
         if (ret_id.next()) {
             entity.setId(ret_id.getLong(1));
-            PreparedStatement statement3 = connection.prepareStatement("INSERT INTO Description (product_id, descr) VALUES (?, ?)");
+            PreparedStatement statement3 = connection.prepareStatement("INSERT INTO Descriptions (product_id, descr) VALUES (?, ?)");
             statement3.setLong(1, ret_id.getLong(1));
             statement3.setString(2, entity.getDescr());
             int result3 = statement3.executeUpdate();
@@ -31,9 +31,9 @@ public class ProductDaoImpl implements ProductDao {
 
     public Product update(Product entity) throws SQLException {
         Statement statement1 = connection.createStatement();
-        ResultSet result1 = statement1.executeQuery("SELECT id FROM Product WHERE name = '" + entity.getName() + "'");
+        ResultSet result1 = statement1.executeQuery("SELECT id FROM Products WHERE name = '" + entity.getName() + "'");
         if (result1.next()) {
-            PreparedStatement statement3 = connection.prepareStatement("UPDATE Description SET descr = ? WHERE product_id = ?", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement statement3 = connection.prepareStatement("UPDATE Descriptions SET descr = ? WHERE product_id = ?", Statement.RETURN_GENERATED_KEYS);
             statement3.setString(1, entity.getDescr());
             statement3.setLong(2, result1.getInt("id"));
             int result3 = statement3.executeUpdate();
@@ -44,10 +44,10 @@ public class ProductDaoImpl implements ProductDao {
 
     public Product find(long id) throws SQLException {
         Statement statementFind = connection.createStatement();
-        ResultSet resultFind = statementFind.executeQuery("SELECT name FROM Product WHERE id = " + id);
+        ResultSet resultFind = statementFind.executeQuery("SELECT name FROM Products WHERE id = " + id);
         Product product = new Product();
         if (resultFind.next()) {
-            PreparedStatement statementFind2 = connection.prepareStatement("SELECT * FROM Description WHERE product_id = ?");
+            PreparedStatement statementFind2 = connection.prepareStatement("SELECT * FROM Descriptions WHERE product_id = ?");
             statementFind2.setLong(1, id);
             ResultSet resultFind2 = statementFind2.executeQuery();
             if (resultFind2.next()) product.setDescr(resultFind2.getString("descr"));
@@ -60,7 +60,7 @@ public class ProductDaoImpl implements ProductDao {
 
     public List<Product> findAll() throws SQLException {
         Statement statementFind = connection.createStatement();
-        ResultSet resultFind = statementFind.executeQuery("SELECT * FROM Product");
+        ResultSet resultFind = statementFind.executeQuery("SELECT * FROM Products");
         List<Product> listPr = new ArrayList<>();
         while (resultFind.next()) {
             Product product = new Product();
@@ -73,9 +73,9 @@ public class ProductDaoImpl implements ProductDao {
 
     public boolean delete(long id) throws SQLException {
         Statement statementFind = connection.createStatement();
-        int res = statementFind.executeUpdate("DELETE FROM Product WHERE id = " + id);
+        int res = statementFind.executeUpdate("DELETE FROM Products WHERE id = " + id);
         Statement statementDescr = connection.createStatement();
-        int resDescr = statementDescr.executeUpdate("DELETE FROM Description WHERE product_id = " + id);
+        int resDescr = statementDescr.executeUpdate("DELETE FROM Descriptions WHERE product_id = " + id);
         return res == 1 && resDescr == 1;
     }
 

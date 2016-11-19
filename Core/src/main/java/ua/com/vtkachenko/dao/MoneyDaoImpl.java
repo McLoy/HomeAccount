@@ -19,7 +19,7 @@ public class MoneyDaoImpl implements MoneyDao{
     @Override
     public Money create(Money entity) throws SQLException {
         entity = findAndSetIdForProductAndGroup(entity);
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO Money (product_id, group_id, summ) VALUES (?,?,?)");
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO Movements (product_id, group_id, summ) VALUES (?,?,?)");
         statement.setLong(1, entity.getProduct().getId());
         statement.setLong(2, entity.getGroup().getId());
         statement.setDouble(3, entity.getSumm());
@@ -31,7 +31,7 @@ public class MoneyDaoImpl implements MoneyDao{
         Product product = entity.getProduct();
         Group group = entity.getGroup();
         if (product.getId() == 0){
-            PreparedStatement statement = connection.prepareStatement("SELECT id FROM Product WHERE name = (?)");
+            PreparedStatement statement = connection.prepareStatement("SELECT id FROM Products WHERE name = (?)");
             statement.setString(1, product.getName());
             ResultSet res = statement.executeQuery();
             if (! res.next()){
@@ -43,7 +43,7 @@ public class MoneyDaoImpl implements MoneyDao{
             entity.setProduct(product);
         }
         if (group.getId() == 0){
-            PreparedStatement statementGroup = connection.prepareStatement("SELECT id FROM `Group` WHERE name = (?)");
+            PreparedStatement statementGroup = connection.prepareStatement("SELECT id FROM Groups WHERE name = (?)");
             statementGroup.setString(1, group.getName());
             ResultSet resGr = statementGroup.executeQuery();
             if (! resGr.next()){
@@ -59,13 +59,13 @@ public class MoneyDaoImpl implements MoneyDao{
 
     @Override
     public Money update(Money entity) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Money WHERE id = (?)");
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Movements WHERE id = (?)");
         statement.setLong(1, entity.getId());
         ResultSet res = statement.executeQuery();
         if (res.next()){
             ProductDao productDao = new ProductDaoImpl(connection);
             GroupDao groupDao = new GroupDaoImpl(connection);
-            PreparedStatement statement1 = connection.prepareStatement("UPDATE Money SET product_id = ?, group_id = ?, summ = ? WHERE id = ?");
+            PreparedStatement statement1 = connection.prepareStatement("UPDATE Movements SET product_id = ?, group_id = ?, summ = ? WHERE id = ?");
             entity = findAndSetIdForProductAndGroup(entity);
             statement1.setLong(1, entity.getProduct().getId());
             statement1.setLong(2, entity.getGroup().getId());
@@ -80,7 +80,7 @@ public class MoneyDaoImpl implements MoneyDao{
     @Override
     public Money find(long id) throws SQLException {
         Money money = new Money();
-        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Money WHERE id = ?");
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Movements WHERE id = ?");
         statement.setLong(1, id);
         ResultSet res = statement.executeQuery();
         if (res.next()){
@@ -99,7 +99,7 @@ public class MoneyDaoImpl implements MoneyDao{
     @Override
     public List<Money> findAll() throws SQLException {
         Statement statementFind = connection.createStatement();
-        ResultSet resultFind = statementFind.executeQuery("SELECT * FROM Money");
+        ResultSet resultFind = statementFind.executeQuery("SELECT * FROM Movements");
         List<Money> listPr = new ArrayList<>();
         while (resultFind.next()) {
             Money money = new Money();
@@ -126,7 +126,7 @@ public class MoneyDaoImpl implements MoneyDao{
     @Override
     public boolean delete(long id) throws SQLException {
         Statement statementFind = connection.createStatement();
-        int res = statementFind.executeUpdate("DELETE FROM Money WHERE id = " + id);
+        int res = statementFind.executeUpdate("DELETE FROM Movements WHERE id = " + id);
         return res == 1;
     }
 

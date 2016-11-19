@@ -15,7 +15,7 @@ public class GroupDaoImpl implements GroupDao{
 
     @Override
     public Group create(Group entity) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO `Group` (name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO Groups (name) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, entity.getName());
         int result = statement.executeUpdate();
         ResultSet ret_id = statement.getGeneratedKeys();
@@ -28,7 +28,7 @@ public class GroupDaoImpl implements GroupDao{
     @Override
     public Group update(Group entity) throws SQLException {
         if (find(entity.getId()) != null){
-            PreparedStatement statementUpd = connection.prepareStatement("UPDATE `Group` SET name = ? WHERE id = ?");
+            PreparedStatement statementUpd = connection.prepareStatement("UPDATE Groups SET name = ? WHERE id = ?");
             statementUpd.setString(1, entity.getName());
             statementUpd.setLong(2, entity.getId());
             int rez = statementUpd.executeUpdate();
@@ -40,7 +40,7 @@ public class GroupDaoImpl implements GroupDao{
     @Override
     public Group find(long id) throws SQLException {
         Statement statementFind = connection.createStatement();
-        ResultSet res = statementFind.executeQuery("SELECT name FROM `Group` WHERE id = " + id);
+        ResultSet res = statementFind.executeQuery("SELECT name FROM Groups WHERE id = " + id);
         Group group = new Group();
         if (res.next()){
             group.setName(res.getString("name"));
@@ -52,7 +52,7 @@ public class GroupDaoImpl implements GroupDao{
     @Override
     public List<Group> findAll() throws SQLException {
         Statement statementFind = connection.createStatement();
-        ResultSet resSet = statementFind.executeQuery("SELECT * FROM `Group`");
+        ResultSet resSet = statementFind.executeQuery("SELECT * FROM Groups");
         List<Group> listOfGroup = new ArrayList<>();
         while (resSet.next()){
             Group group = new Group();
@@ -66,7 +66,7 @@ public class GroupDaoImpl implements GroupDao{
     @Override
     public boolean delete(long id) throws SQLException {
         Statement statementFind = connection.createStatement();
-        int res = statementFind.executeUpdate("DELETE FROM `Group` WHERE id = " + id);
+        int res = statementFind.executeUpdate("DELETE FROM Groups WHERE id = " + id);
         return res == 1;
     }
 

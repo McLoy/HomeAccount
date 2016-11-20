@@ -11,10 +11,10 @@ import java.util.List;
 @Component
 public class Terminal {
 
-    public static final String URL = "jdbc:mysql://localhost:3306/account";
-    public static final String USER = "root";
-    public static final String PASSWORD = "root";
-    public static final String SEPARATOR = "@";
+//    public static final String URL = "jdbc:mysql://localhost:3306/account";
+//    public static final String USER = "root";
+//    public static final String PASSWORD = "root";
+//    public static final String SEPARATOR = "@";
     @Autowired
     private UbuntuConsole console;
 

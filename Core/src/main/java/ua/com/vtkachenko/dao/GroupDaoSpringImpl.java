@@ -12,8 +12,16 @@ import java.util.List;
 
 @Component
 public class GroupDaoSpringImpl implements GroupDao {
+
     @Autowired
     protected JdbcTemplate jdbcTemplate;
+
+    public GroupDaoSpringImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public GroupDaoSpringImpl() {
+    }
 
     public class GroupMapper implements RowMapper{
         @Override

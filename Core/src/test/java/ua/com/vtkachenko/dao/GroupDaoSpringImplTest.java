@@ -38,6 +38,15 @@ public class GroupDaoSpringImplTest {
         Assertions.assertThat(group.getName()).isEqualTo("Transport");
     }
 
+    @Test
+    public void create() throws Exception {
+        Group group = new Group();
+        group.setName("Bus");
+        Group res = groupDao.create(group);
+        Assertions.assertThat(res.getName()).isEqualTo("Bus");
+        Assertions.assertThat(res.getId()).isNotEqualTo(4);
+    }
+
     @After
     public void tearDown(){
         db.shutdown();

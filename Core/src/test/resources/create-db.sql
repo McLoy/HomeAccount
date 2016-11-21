@@ -2,3 +2,4 @@ CREATE TABLE Groups (
   id INTEGER PRIMARY KEY NOT NULL,
   name VARCHAR(45)
 );
+CREATE UNIQUE INDEX Groups_id_uindex ON Groups (id);

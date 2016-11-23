@@ -21,6 +21,14 @@ public class ProductDaoSpringImpl implements ProductDao {
     @Autowired
     protected JdbcTemplate jdbcTemplate;
 
+    ProductDaoSpringImpl(JdbcTemplate jdbcTemplate){
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    ProductDaoSpringImpl(){
+
+    }
+
     public class ProductMapper implements RowMapper {
         @Override
         public Product mapRow(ResultSet rs, int rowNum) throws SQLException {

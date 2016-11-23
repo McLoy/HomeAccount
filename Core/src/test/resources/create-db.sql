@@ -3,3 +3,17 @@ CREATE TABLE Groups (
   name VARCHAR(45)
 );
 CREATE UNIQUE INDEX Groups_id_uindex ON Groups (id);
+
+CREATE TABLE Descriptions (
+  product_id INTEGER NOT NULL,
+  descr VARCHAR(100)
+);
+CREATE UNIQUE INDEX Descriptions_id_uindex ON Descriptions (product_id);
+
+CREATE TABLE Products
+(
+  id INTEGER PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+  name VARCHAR(45),
+  groupId INTEGER
+);
+CREATE UNIQUE INDEX Product_id_uindex ON Products (id);

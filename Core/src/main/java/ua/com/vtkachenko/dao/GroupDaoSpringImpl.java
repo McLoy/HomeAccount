@@ -8,6 +8,7 @@ import ua.com.vtkachenko.entity.Group;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -54,8 +55,12 @@ public class GroupDaoSpringImpl implements GroupDao {
     @Override
     public Group find(long id) throws SQLException {
         String SQL = "SELECT * FROM Groups WHERE id = ?";
-        Group group = (Group) jdbcTemplate.queryForObject(SQL, new Object[]{id}, new GroupMapper());
-        return group;
+        Object result =  jdbcTemplate.query(SQL,new Object[]{id}, new GroupMapper());
+        if (result.getClass() == ArrayList.class && ((ArrayList) result).size() ==0){
+            return null;
+        } else {
+            return (Group) ((ArrayList) result).get(0);
+        }
     }
 
     @Override

@@ -1,3 +1,3 @@
-INSERT INTO Groups VALUES (1, 'Transport');
-INSERT INTO Groups VALUES (2, 'House');
-INSERT INTO Groups VALUES (3, 'Food');
+INSERT INTO Groups (name) VALUES ('Transport');
+INSERT INTO Groups (name) VALUES ('House');
+INSERT INTO Groups (name) VALUES ('Food');

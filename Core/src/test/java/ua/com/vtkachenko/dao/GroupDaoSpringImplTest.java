@@ -47,6 +47,21 @@ public class GroupDaoSpringImplTest {
         Assertions.assertThat(res.getId()).isNotEqualTo(4);
     }
 
+    @Test
+    public void deleteById() throws Exception {
+        groupDao.delete(1);
+        Assertions.assertThat(groupDao.find(1)).isNull();
+    }
+
+    @Test
+    public void delete() throws Exception {
+        Group group = new Group();
+        group.setName("House");
+        group.setId(2);
+        groupDao.delete(group);
+        Assertions.assertThat(groupDao.find(2)).isNull();
+    }
+
     @After
     public void tearDown(){
         db.shutdown();

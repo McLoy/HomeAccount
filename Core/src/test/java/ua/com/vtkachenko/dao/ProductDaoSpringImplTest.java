@@ -40,11 +40,11 @@ public class ProductDaoSpringImplTest {
 
     @Test
     public void create() throws Exception {
-//        Product product = new Product();
-//        product.setName("Milk");
-//        product.setDescr("For children");
-//        Product res = productDao.create(product);
-//        Assertions.assertThat(res.getName()).isEqualTo("Milk");
+        Product product = new Product();
+        product.setName("Milk");
+        product.setDescr("For children");
+        Product res = productDao.create(product);
+        Assertions.assertThat(res.getName()).isEqualTo("Milk");
 //        Assertions.assertThat(res.getDescr()).isEqualTo("For children");
 //        Assertions.assertThat(res.getId()).isEqualTo(3);
     }

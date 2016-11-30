@@ -12,13 +12,8 @@ public class ProductDaoImplTest{
     public static final String URL = "jdbc:mysql://localhost:3306/account?autoReconnect=true&useSSL=false";
     public static final String USER = "root";
     public static final String PASSWORD = "root";
-    public static final int ID = 16; //don't forget it
+    public static final int ID = 16;
 
-
-    /**
-     * I start test one by one, after creating I remember ID wich DB auto creates and put it to string "don't forget it"
-     * @throws Exception
-     */
     @Test
     public void create() throws Exception {
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD)) {
@@ -56,7 +51,7 @@ public class ProductDaoImplTest{
     public void find() throws Exception {
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD)) {
             ProductDao dao = new ProductDaoImpl(con);
-            Assertions.assertThat(dao.find(ID).getId()).isNotEqualTo(0);//You need to set id!!!
+            Assertions.assertThat(dao.find(ID).getId()).isNotEqualTo(0);
         }
     }
 
@@ -65,7 +60,7 @@ public class ProductDaoImplTest{
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD)) {
             ProductDao dao = new ProductDaoImpl(con);
             Product pr = new Product();
-            pr.setId(ID); //You need to set id for deleting!!!
+            pr.setId(ID);
             Assertions.assertThat(dao.delete(pr)).isTrue();
         }
     }

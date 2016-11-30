@@ -12,7 +12,7 @@ public class GroupDaoImplTest {
     public static final String URL = "jdbc:mysql://localhost:3306/account?autoReconnect=true&useSSL=false";
     public static final String USER = "root";
     public static final String PASSWORD = "root";
-    public static final int ID = 6;//You need to set id!!!
+    public static final int ID = 6;
 
     @Test
     public void create() throws Exception {
@@ -31,7 +31,7 @@ public class GroupDaoImplTest {
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD)) {
             GroupDao dao = new GroupDaoImpl(con);
             Group group = new Group();
-            group.setId(ID);//You need to set id!!!
+            group.setId(ID);
             group.setName("Transport");
             Group res = dao.update(group);
             Assertions.assertThat(res.getName()).isEqualTo("Transport");
@@ -50,7 +50,7 @@ public class GroupDaoImplTest {
     public void find() throws Exception {
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD)) {
             GroupDao dao = new GroupDaoImpl(con);
-            Assertions.assertThat(dao.find(ID).getId()).isNotEqualTo(0);//You need to set id!!!
+            Assertions.assertThat(dao.find(ID).getId()).isNotEqualTo(0);
         }
     }
 
@@ -59,7 +59,7 @@ public class GroupDaoImplTest {
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD)) {
             GroupDao dao = new GroupDaoImpl(con);
             Group pr = new Group();
-            pr.setId(ID);//You need to set id!!!
+            pr.setId(ID);
             Assertions.assertThat(dao.delete(pr)).isTrue();
         }
     }

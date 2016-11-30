@@ -1,9 +1,10 @@
-package ua.com.vtkachenko.dao;
+package ua.com.vtkachenko.dao.spring;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import ua.com.vtkachenko.dao.GroupDao;
 import ua.com.vtkachenko.entity.Group;
 
 import java.sql.ResultSet;

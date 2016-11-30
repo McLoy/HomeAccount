@@ -17,3 +17,11 @@ CREATE TABLE Products
   groupId INTEGER
 );
 CREATE UNIQUE INDEX Product_id_uindex ON Products (id);
+
+CREATE TABLE Movements
+(
+  id INTEGER PRIMARY KEY NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+  product_id INTEGER,
+  group_id INTEGER,
+  summ INTEGER
+);

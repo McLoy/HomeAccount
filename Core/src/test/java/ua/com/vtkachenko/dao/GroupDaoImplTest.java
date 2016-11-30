@@ -42,7 +42,7 @@ public class GroupDaoImplTest {
     public void findAll() throws Exception {
         try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD)) {
             GroupDao dao = new GroupDaoImpl(con);
-            Assertions.assertThat(dao.findAll().size()).isEqualTo(3);
+            Assertions.assertThat(dao.findAll().size()).isEqualTo(1);
         }
     }
 

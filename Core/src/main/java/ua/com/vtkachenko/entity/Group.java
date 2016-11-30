@@ -12,4 +12,7 @@ public class Group extends IdName {
     public void setProductSet(Set<Product> productSet) {
         this.productSet = productSet;
     }
+
+
+
 }

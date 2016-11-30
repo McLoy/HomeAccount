@@ -1,5 +1,6 @@
-package ua.com.vtkachenko.dao;
+package ua.com.vtkachenko.dao.spring;
 
+import com.mysql.cj.api.jdbc.Statement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -7,12 +8,14 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
+import ua.com.vtkachenko.dao.ProductDao;
 import ua.com.vtkachenko.entity.Product;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -48,13 +51,13 @@ public class ProductDaoSpringImpl implements ProductDao {
                 new PreparedStatementCreator() {
                     public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
                         PreparedStatement pst =
-                                con.prepareStatement(SQL, new String[] {"id"});
+                                con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
                         pst.setString(1, entity.getName());
                         return pst;
                     }
                 },
                 keyHolder);
-        long id = (Long)keyHolder.getKey();
+        long id = keyHolder.getKey().longValue();
         if (id != 0){
             entity.setId(id);
             String SQL2 = "INSERT INTO Descriptions (product_id, descr) VALUES (?, ?)";
@@ -75,8 +78,12 @@ public class ProductDaoSpringImpl implements ProductDao {
     @Override
     public Product find(long id) throws SQLException {
         String SQL = "SELECT * FROM Products LEFT JOIN Descriptions ON id = product_id WHERE id = ?";
-        Product product = (Product) jdbcTemplate.queryForObject(SQL, new Object[]{id}, new ProductMapper());
-        return product;
+        Object result =  jdbcTemplate.query(SQL,new Object[]{id}, new ProductMapper());
+        if (result.getClass() == ArrayList.class && ((ArrayList) result).size() ==0){
+            return null;
+        } else {
+            return (Product) ((ArrayList) result).get(0);
+        }
     }
 
     @Override

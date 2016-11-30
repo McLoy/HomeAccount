@@ -7,3 +7,6 @@ INSERT INTO Products (name) VALUES ('Lamp');
 
 INSERT INTO Descriptions (product_id, descr) VALUES (1, 'White');
 INSERT INTO Descriptions (product_id, descr) VALUES (2, 'Osram');
+
+INSERT INTO Movements (product_id, group_id, summ) VALUES (1, 3, 8.70);
+INSERT INTO Movements (product_id, group_id, summ) VALUES (2, 2, 12.45)

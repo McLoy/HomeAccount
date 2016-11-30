@@ -1,9 +1,11 @@
 package ua.com.vtkachenko.dao;
 
+import org.springframework.aop.ThrowsAdvice;
+
 import java.sql.SQLException;
 import java.util.List;
 
-public interface GenericDao<T> {
+public interface GenericDao<T>{
     T create(T entity) throws SQLException;
 
     T update(T entity) throws SQLException;

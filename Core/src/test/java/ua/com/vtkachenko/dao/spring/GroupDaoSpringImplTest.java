@@ -1,4 +1,4 @@
-package ua.com.vtkachenko.dao;
+package ua.com.vtkachenko.dao.spring;
 
 import org.fest.assertions.Assertions;
 import org.junit.After;
@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import ua.com.vtkachenko.dao.GroupDao;
+import ua.com.vtkachenko.dao.spring.GroupDaoSpringImpl;
 import ua.com.vtkachenko.entity.Group;
 
 import java.util.List;

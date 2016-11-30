@@ -1,4 +1,4 @@
-package ua.com.vtkachenko.dao;
+package ua.com.vtkachenko.dao.spring;
 
 import org.fest.assertions.Assertions;
 import org.junit.After;
@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import ua.com.vtkachenko.dao.ProductDao;
+import ua.com.vtkachenko.dao.spring.ProductDaoSpringImpl;
 import ua.com.vtkachenko.entity.Product;
 
 import java.util.List;
@@ -44,24 +46,25 @@ public class ProductDaoSpringImplTest {
         product.setName("Milk");
         product.setDescr("For children");
         Product res = productDao.create(product);
+        res = productDao.find(res.getId());
         Assertions.assertThat(res.getName()).isEqualTo("Milk");
-//        Assertions.assertThat(res.getDescr()).isEqualTo("For children");
-//        Assertions.assertThat(res.getId()).isEqualTo(3);
+        Assertions.assertThat(res.getDescr()).isEqualTo("For children");
+        Assertions.assertThat(res.getId()).isEqualTo(3);
     }
 
     @Test
     public void deleteById() throws Exception {
-//        groupDao.delete(1);
-//        Assertions.assertThat(groupDao.find(1)).isNull();
+        Assertions.assertThat(productDao.delete(1)).isTrue();
+        Assertions.assertThat(productDao.find(1)).isNull();
     }
 
     @Test
     public void delete() throws Exception {
-//        Group group = new Group();
-//        group.setName("House");
-//        group.setId(2);
-//        groupDao.delete(group);
-//        Assertions.assertThat(groupDao.find(2)).isNull();
+        Product product = new Product();
+        product.setName("Milk");
+        product.setId(3);
+        productDao.delete(product);
+        Assertions.assertThat(productDao.find(3)).isNull();
     }
 
     @After

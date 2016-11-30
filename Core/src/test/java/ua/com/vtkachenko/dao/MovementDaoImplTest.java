@@ -11,7 +11,7 @@ import java.sql.DriverManager;
 
 public class MovementDaoImplTest {
 
-    public static final String URL = "jdbc:mysql://localhost:3306/account";
+    public static final String URL = "jdbc:mysql://localhost:3306/account?autoReconnect=true&useSSL=false";
     public static final String USER = "root";
     public static final String PASSWORD = "root";
 

@@ -1,7 +1,5 @@
 package ua.com.vtkachenko.dao;
 
-import org.springframework.aop.ThrowsAdvice;
-
 import java.sql.SQLException;
 import java.util.List;
 

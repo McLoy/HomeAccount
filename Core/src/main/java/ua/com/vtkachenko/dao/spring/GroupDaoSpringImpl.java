@@ -12,10 +12,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+//@Component
 public class GroupDaoSpringImpl implements GroupDao {
 
-    @Autowired
+//    @Autowired
     protected JdbcTemplate jdbcTemplate;
 
     public GroupDaoSpringImpl(JdbcTemplate jdbcTemplate) {

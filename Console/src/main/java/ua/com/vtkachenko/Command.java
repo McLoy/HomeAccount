@@ -1,9 +1,7 @@
 package ua.com.vtkachenko;
 
-public enum  Command {
-    EXIT;
+public interface Command {
+    void execute();
 
-    public void execute() {
-        System.out.println(name());
-    }
+    String getDescription();
 }

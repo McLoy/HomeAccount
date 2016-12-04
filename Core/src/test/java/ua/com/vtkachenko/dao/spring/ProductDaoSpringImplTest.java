@@ -9,7 +9,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import ua.com.vtkachenko.dao.ProductDao;
-import ua.com.vtkachenko.dao.spring.ProductDaoSpringImpl;
+import ua.com.vtkachenko.entity.Description;
 import ua.com.vtkachenko.entity.Product;
 
 import java.util.List;
@@ -44,11 +44,11 @@ public class ProductDaoSpringImplTest {
     public void create() throws Exception {
         Product product = new Product();
         product.setName("Milk");
-        product.setDescr("For children");
+        product.setDescription(new Description("For children"));
         Product res = productDao.create(product);
         res = productDao.find(res.getId());
         Assertions.assertThat(res.getName()).isEqualTo("Milk");
-        Assertions.assertThat(res.getDescr()).isEqualTo("For children");
+        Assertions.assertThat(res.getDescription()).isEqualTo("For children");
         Assertions.assertThat(res.getId()).isEqualTo(3);
     }
 

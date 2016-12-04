@@ -9,6 +9,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import ua.com.vtkachenko.dao.ProductDao;
+import ua.com.vtkachenko.entity.Description;
 import ua.com.vtkachenko.entity.Product;
 
 import java.sql.Connection;
@@ -38,7 +39,7 @@ public class ProductDaoSpringImpl implements ProductDao {
             Product product = new Product();
             product.setId(rs.getLong("id"));
             product.setName(rs.getString("name"));
-            product.setDescr(rs.getString("descr"));
+            product.setDescription(new Description(rs.getString("descr")));
             return product;
         }
     }
@@ -61,7 +62,7 @@ public class ProductDaoSpringImpl implements ProductDao {
         if (id != 0){
             entity.setId(id);
             String SQL2 = "INSERT INTO Descriptions (product_id, descr) VALUES (?, ?)";
-            jdbcTemplate.update(SQL2, id, entity.getDescr());
+            jdbcTemplate.update(SQL2, id, entity.getDescription());
         }
         return entity;
     }
@@ -71,7 +72,7 @@ public class ProductDaoSpringImpl implements ProductDao {
         String SQL = "UPDATE Products SET name = ? WHERE id = ?";
         String SQL2 = "UPDATE Descriptions SET name = ? WHERE product_id = ?";
         jdbcTemplate.update(SQL, entity.getName(), entity.getId());
-        jdbcTemplate.update(SQL2, entity.getDescr(), entity.getId());
+        jdbcTemplate.update(SQL2, entity.getDescription(), entity.getId());
         return entity;
     }
 

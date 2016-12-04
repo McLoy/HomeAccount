@@ -2,6 +2,7 @@ package ua.com.vtkachenko.dao;
 
 import org.fest.assertions.Assertions;
 import org.junit.Test;
+import ua.com.vtkachenko.entity.Description;
 import ua.com.vtkachenko.entity.Group;
 import ua.com.vtkachenko.entity.Movement;
 import ua.com.vtkachenko.entity.Product;
@@ -21,7 +22,7 @@ public class MovementDaoImplTest {
             MovementDao dao = new MovementDaoImpl(con);
             Product product = new Product();
             product.setName("Auto oil");
-            product.setDescr("Engine oil");
+            product.setDescription(new Description("Engine oil"));
             Group group = new Group();
             group.setName("Transport");
             Movement movement = new Movement(product, group, 200);
@@ -38,7 +39,7 @@ public class MovementDaoImplTest {
             MovementDao dao = new MovementDaoImpl(con);
             Product product = new Product();
             product.setName("Machine oil");
-            product.setDescr("Oil for transmission");
+            product.setDescription(new Description("Oil for transmission"));
             Group group = new Group();
             group.setName("Transport");
             Movement movement = new Movement(product, group, 222);

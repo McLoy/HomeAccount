@@ -1,26 +1,32 @@
 package ua.com.vtkachenko.entity;
 
-import java.util.Set;
+import javax.persistence.*;
 
+@Entity
+@Table(name = "Products")
 public class Product extends IdName{
 
-    private Set<Group> groupSet;
-    private String descr;
 
-    public Set<Group> getGroupSet() {
-        return groupSet;
+//    private Set<Group> groupSet;
+//@Transient
+@OneToOne()
+    private Description description;
+
+//    public Set<Group> getGroupSet() {
+//        return groupSet;
+//    }
+//
+//    public void setGroupSet(Set<Group> groupSet) {
+//        this.groupSet = groupSet;
+//
+//    }
+
+    public Description getDescription() {
+        return description;
+//        return null;
     }
 
-    public void setGroupSet(Set<Group> groupSet) {
-        this.groupSet = groupSet;
-
-    }
-
-    public String getDescr() {
-        return descr;
-    }
-
-    public void setDescr(String descr) {
-        this.descr = descr;
+    public void setDescription(Description descr) {
+        this.description = descr;
     }
 }

@@ -1,10 +1,23 @@
 package ua.com.vtkachenko.entity;
 
+import javax.persistence.*;
+
+//@Entity
+@Table(name = "Movements")
 public class Movement {
 
+//    @Column (name = "product_id")
     private Product product;
+
+//    @Column (name = "group_id")
     private Group group;
+
+    @Column (name = "summ")
     private double summ;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "id", unique = true, nullable = false)
     private long id;
 
     public Movement() {

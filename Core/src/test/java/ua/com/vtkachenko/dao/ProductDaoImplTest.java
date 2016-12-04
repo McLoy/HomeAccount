@@ -2,6 +2,7 @@ package ua.com.vtkachenko.dao;
 
 import org.fest.assertions.Assertions;
 import org.junit.Test;
+import ua.com.vtkachenko.entity.Description;
 import ua.com.vtkachenko.entity.Product;
 
 import java.sql.Connection;
@@ -20,10 +21,10 @@ public class ProductDaoImplTest{
             ProductDao dao = new ProductDaoImpl(con);
             Product product = new Product();
             product.setName("Bread");
-            product.setDescr("White");
+            product.setDescription(new Description("White"));
             Product res = dao.create(product);
             Assertions.assertThat(res.getName()).isEqualTo("Bread");
-            Assertions.assertThat(res.getDescr()).isEqualTo("White");
+            Assertions.assertThat(res.getDescription()).isEqualTo("White");
             Assertions.assertThat(res.getId()).isNotEqualTo(0);
         }
     }
@@ -34,8 +35,8 @@ public class ProductDaoImplTest{
             ProductDao dao = new ProductDaoImpl(con);
             Product pr = new Product();
             pr.setName("Bread");
-            pr.setDescr("Change description");
-            Assertions.assertThat(dao.update(pr).getDescr()).isNotNull();
+            pr.setDescription(new Description("Change description"));
+            Assertions.assertThat(dao.update(pr).getDescription()).isNotNull();
         }
     }
 

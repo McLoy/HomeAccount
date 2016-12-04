@@ -1,5 +1,6 @@
 package ua.com.vtkachenko.dao;
 
+import ua.com.vtkachenko.entity.Description;
 import ua.com.vtkachenko.entity.Product;
 
 import java.sql.*;
@@ -22,7 +23,7 @@ public class ProductDaoImpl implements ProductDao {
             entity.setId(ret_id.getLong(1));
             PreparedStatement statement3 = connection.prepareStatement("INSERT INTO Descriptions (product_id, descr) VALUES (?, ?)");
             statement3.setLong(1, ret_id.getLong(1));
-            statement3.setString(2, entity.getDescr());
+            statement3.setString(2, entity.getDescription().getData());
             int result3 = statement3.executeUpdate();
             return entity;
         }
@@ -34,7 +35,7 @@ public class ProductDaoImpl implements ProductDao {
         ResultSet result1 = statement1.executeQuery("SELECT id FROM Products WHERE name = '" + entity.getName() + "'");
         if (result1.next()) {
             PreparedStatement statement3 = connection.prepareStatement("UPDATE Descriptions SET descr = ? WHERE product_id = ?", Statement.RETURN_GENERATED_KEYS);
-            statement3.setString(1, entity.getDescr());
+            statement3.setString(1, entity.getDescription().getData());
             statement3.setLong(2, result1.getInt("id"));
             int result3 = statement3.executeUpdate();
             return entity;
@@ -50,7 +51,7 @@ public class ProductDaoImpl implements ProductDao {
             PreparedStatement statementFind2 = connection.prepareStatement("SELECT * FROM Descriptions WHERE product_id = ?");
             statementFind2.setLong(1, id);
             ResultSet resultFind2 = statementFind2.executeQuery();
-            if (resultFind2.next()) product.setDescr(resultFind2.getString("descr"));
+            if (resultFind2.next()) product.setDescription(new Description(resultFind2.getString("descr")));
             product.setName(resultFind.getString("name"));
             product.setId(id);
             return product;

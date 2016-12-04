@@ -109,7 +109,7 @@ public class MovementDaoImpl implements MovementDao {
             ProductDao pd = new ProductDaoImpl(connection);
             Product prod = pd.find(id_prod);
             product.setName(prod.getName());
-            product.setDescr(pd.find(prod.getId()).getDescr());
+            product.setDescription(pd.find(prod.getId()).getDescription());
             Group group = new Group();
             long id_group = resultFind.getLong("group_id");
             GroupDao gr = new GroupDaoImpl(connection);

@@ -11,6 +11,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import ua.com.vtkachenko.dao.GroupDao;
 import ua.com.vtkachenko.dao.MovementDao;
 import ua.com.vtkachenko.dao.ProductDao;
+import ua.com.vtkachenko.entity.Description;
 import ua.com.vtkachenko.entity.Group;
 import ua.com.vtkachenko.entity.Movement;
 import ua.com.vtkachenko.entity.Product;
@@ -47,7 +48,7 @@ public class MovementDaoSpringImplTest {
     public void create() throws Exception {
         Product product = new Product();
         product.setName("Auto oil");
-        product.setDescr("Engine oil");
+        product.setDescription(new Description("Engine oil"));
         ProductDao productDao = new ProductDaoSpringImpl(jdbcTemplate);
         List listOfProducts = productDao.findAll();
         if (! listOfProducts.contains(product.getName())){

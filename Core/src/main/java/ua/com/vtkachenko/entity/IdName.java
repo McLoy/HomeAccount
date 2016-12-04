@@ -1,7 +1,17 @@
 package ua.com.vtkachenko.entity;
 
+import javax.persistence.*;
+
+
+@MappedSuperclass
 public abstract class IdName {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name = "id", unique = true, nullable = false)
     private long id;
+
+    @Column (name = "name")
     private String name;
 
     public long getId() {
